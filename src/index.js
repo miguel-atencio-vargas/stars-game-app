@@ -1,17 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {colors, math} from './utils/game.utils';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const PlayNumber = props => (
+  <button className="number" onClick={() => console.log(props.number)}>{props.number}</button>
+)
+
+const StarMatch = () => {
+  const [stars, setStars] = useState(math.random(1,9));
+  return (
+    <div className="game">
+      <div className="help">
+        Pick 1 or more numbers that sum to the number of stars
+      </div>
+      <div className="body">
+        <div className="left">
+          
+          {math.range(1, stars).map(starID => 
+            <div key={starID} className="star" />
+          )}
+        </div>
+        <div className="right">
+          {math.range(1, 9).map(numID => 
+            <PlayNumber key={numID} number={numID} />
+          )}
+        </div>
+      </div>
+      <div className="timer">Time Remaining: 10</div>
+    </div>
+  );
+};
+
+ReactDOM.render(<StarMatch />, document.getElementById('root'));
+
