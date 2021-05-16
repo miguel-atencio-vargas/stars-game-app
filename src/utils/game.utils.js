@@ -32,7 +32,8 @@ const math = {
         }
       }
     }
-  }
+    return sums[math.random(0, sums.length - 1)];
+  },
 }
 
 module.exports = { colors, math };
